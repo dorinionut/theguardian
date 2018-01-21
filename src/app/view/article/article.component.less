@@ -1,0 +1,134 @@
+@import (reference) '../../../mixins';
+@import (reference) '../../../variables';
+
+.article {
+  background: #fff;
+  box-shadow: 0px 3px 5px 0px #ccc;
+  margin: 0px auto;
+  transition: box-shadow 0.2s ease-out;
+
+  .back {
+    color: @color-text;
+    display: inline-block;
+    font-size: @font-size;
+    line-height: 20px;
+    margin: @margin*0.25 @margin*0.5 @margin*0.5 @margin*0.5;
+
+    &::before {
+      content: '\2039';
+      font-size: @font-size*1.75;
+      line-height: 20px;
+      margin-right: @margin*0.25;
+    }
+  }
+
+  .image {
+    background-position: center center;
+    background-repeat: none;
+    background-size: cover;
+    display: block;
+    height: 50vw;
+    max-height: 70vh;
+    width: 100%;
+  }
+
+  .content {
+    padding: @padding*0.5;
+
+    .title {
+      font-size: @font-size*1.625;
+      font-weight: normal;
+      margin: @margin*0.5 0px @margin*0.5 0px;
+    }
+
+    .meta {
+      border-bottom: 1px solid @color-border;
+      padding-bottom: @padding*0.5;
+
+      .clearfix;
+
+      .author {
+        color: fade(@color-text, 60%);
+        float: left;
+        font-size: @font-size*0.75;
+        text-align: left;
+        width: 30%;
+
+        @media (max-width: 767px) {
+          margin-right: 0;
+          width: 50%;
+        }
+      }
+
+      .date {
+        color: fade(@color-text, 60%);
+        float: left;
+        font-size: @font-size*0.75;
+        text-align: left;
+
+        @media (max-width: 767px) {
+          margin-right: 0;
+          text-align: right;
+          width: 50%;
+        }
+      }
+    }
+
+    .body {
+      font-size: @font-size;
+      margin-top: @margin;
+
+      h2 {
+        font-size: @font-size*1.25;
+        font-weight: normal;
+      }
+
+      p {
+        margin: @margin*0.5 0;
+      }
+
+      figure {
+        margin: 0;
+
+        img {
+          height: auto;
+          width: 100%;
+        }
+      }
+
+      .block {
+        background: #f9f9f9;
+        padding: @padding*0.5;
+
+        & + .block {
+          margin: @margin*0.5 0;
+        }
+
+        .block-time {
+          color: fade(@color-text, 60%);
+          font-size: @font-size*0.875;
+          margin-bottom: @margin*0.5;
+        }
+
+        .block-elements {
+
+          figure {
+
+            blockquote {
+              border: 1px solid #ddd;
+              color: #444;
+              font-size: 12px;
+              padding: 10px;
+              margin: 0 0 0 @margin;
+
+              p {
+                font-size: @font-size*0.875;
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

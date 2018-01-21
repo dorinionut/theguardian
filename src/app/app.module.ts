@@ -5,12 +5,17 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { ArticleComponent } from './view/article/article.component';
+import { ArticleService } from './service/article.service';
+import { ListComponent } from './view/list/list.component';
 import { HttpService } from './service/http.service';
 import { routes } from './app.routing';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ArticleComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +24,7 @@ import { routes } from './app.routing';
     RouterModule.forRoot(routes)
   ],
   providers: [
+    ArticleService,
     HttpService
   ],
   bootstrap: [AppComponent]
