@@ -4,7 +4,8 @@
   <div class="content">
     <h2 class="title">{{article.title}}</h2>
     <div class="meta">
-      <div class="author">{{article.author}}</div>
+      <!-- It may happen that some articles have no author - eg: live webchat -->
+      <div *ngIf="article.author" class="author">{{article.author}}</div>
       <div class="date">{{article.date | date:'dd.MM.yyyy'}}</div>
     </div>
     <div class="body" [innerHTML]="article.body"></div>

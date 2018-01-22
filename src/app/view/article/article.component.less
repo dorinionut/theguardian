@@ -5,20 +5,25 @@
   background: #fff;
   box-shadow: 0px 3px 5px 0px #ccc;
   margin: 0px auto;
+  max-width: @content-width;
   transition: box-shadow 0.2s ease-out;
 
   .back {
-    color: @color-text;
+    color: fade(@color-text, 60);
     display: inline-block;
     font-size: @font-size;
     line-height: 20px;
-    margin: @margin*0.25 @margin*0.5 @margin*0.5 @margin*0.5;
+    margin: @margin*0.5;
 
     &::before {
       content: '\2039';
-      font-size: @font-size*1.75;
+      font-size: @font-size*1.25;
       line-height: 20px;
       margin-right: @margin*0.25;
+    }
+
+    &:hover {
+      color: @color-text;
     }
   }
 
@@ -28,7 +33,7 @@
     background-size: cover;
     display: block;
     height: 50vw;
-    max-height: 70vh;
+    max-height: 50vh;
     width: 100%;
   }
 
@@ -38,7 +43,7 @@
     .title {
       font-size: @font-size*1.625;
       font-weight: normal;
-      margin: @margin*0.5 0px @margin*0.5 0px;
+      margin: @margin*0.5 0px @margin 0px;
     }
 
     .meta {
@@ -52,25 +57,15 @@
         float: left;
         font-size: @font-size*0.75;
         text-align: left;
-        width: 30%;
-
-        @media (max-width: 767px) {
-          margin-right: 0;
-          width: 50%;
-        }
+        width: 50%;
       }
 
       .date {
         color: fade(@color-text, 60%);
-        float: left;
+        float: right;
         font-size: @font-size*0.75;
-        text-align: left;
-
-        @media (max-width: 767px) {
-          margin-right: 0;
-          text-align: right;
-          width: 50%;
-        }
+        text-align: right;
+        width: 50%;
       }
     }
 
@@ -84,6 +79,7 @@
       }
 
       p {
+        line-height: @font-size*1.5;
         margin: @margin*0.5 0;
       }
 
@@ -92,7 +88,26 @@
 
         img {
           height: auto;
-          width: 100%;
+          max-width: 100%;
+        }
+
+        blockquote {
+          border: 1px solid #ddd;
+          color: #444;
+          font-size: 12px;
+          padding: 10px;
+          margin: 0 0 0 @margin;
+
+          &.twitter-tweet {
+            background: fade(@color-twitter, 5);
+            border-color: fade(@color-twitter, 20);
+          }
+
+          p {
+            font-size: @font-size*0.875;
+            line-height: @font-size*1.125;
+            margin-top: 0;
+          }
         }
       }
 
@@ -108,25 +123,6 @@
           color: fade(@color-text, 60%);
           font-size: @font-size*0.875;
           margin-bottom: @margin*0.5;
-        }
-
-        .block-elements {
-
-          figure {
-
-            blockquote {
-              border: 1px solid #ddd;
-              color: #444;
-              font-size: 12px;
-              padding: 10px;
-              margin: 0 0 0 @margin;
-
-              p {
-                font-size: @font-size*0.875;
-                margin-top: 0;
-              }
-            }
-          }
         }
       }
     }
