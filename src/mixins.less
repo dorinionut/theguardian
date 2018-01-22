@@ -1,7 +1,24 @@
+@import (reference) 'variables';
+
 .clearfix {
   &::after {
     content: '';
     clear: both;
     display: table;
+  }
+}
+
+.shadow {
+  box-shadow: 0px 3px 5px 0px #ccc;
+}
+
+.panel {
+  .shadow;
+  background: #fff;
+  margin: 0px auto;
+  max-width: @content-width;
+
+  .content {
+    padding: @padding*0.5;
   }
 }

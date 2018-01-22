@@ -1,5 +1,8 @@
-<div *ngIf="list?.length" class="article-list">
-  <div *ngFor="let article of list" class="article-box" [routerLink]="article.id">
+<div class="filters">
+  <span (click)="toggleBookmarks()" class="show-bookmarks"><i [ngClass]="{'fa-check-square': showOnlyBookmarks, 'fa-square': !showOnlyBookmarks}" class="far"></i> Show only bookmarks</span>
+</div>
+<div *ngIf="articles?.length" class="article-list">
+  <div *ngFor="let article of articles" class="article-box" [routerLink]="article.id">
     <img [src]="article.thumbnail" class="thumbnail"/>
     <div class="content">
       <h2 class="title">{{article.title}}</h2>
@@ -8,7 +11,18 @@
         <div *ngIf="article.author" class="author">{{article.author}}</div>
         <div class="date">{{article.date | date:'dd.MM.yyyy'}}</div>
       </div>
-      <div class="trailtext" [innerHTML]="article.trailText"></div>
+      <p class="trailtext" [innerHTML]="article.trailText"></p>
     </div>
+  </div>
+</div>
+<div *ngIf="articles && articles?.length == 0" class="empty-list">
+  <div class="content">
+    <i class="far fa-frown"></i>
+    <h2>There are no articles to display at the moment.</h2>
+  </div>
+</div>
+<div *ngIf="!articles" class="loading">
+  <div class="content">
+    <i class="fas fa-circle-notch fa-spin"></i>
   </div>
 </div>

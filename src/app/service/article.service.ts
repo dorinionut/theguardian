@@ -13,10 +13,14 @@ export class ArticleService {
     private httpService: HttpService<any>
   ) {  }
 
-  list() {
+  list(ids?) {
     const url = `${HttpService.baseURL}/search`;
-    const queryParams = new HttpParams()
+    let queryParams = new HttpParams()
       .append('show-fields', 'byline,headline,thumbnail,trailText');
+
+    if(ids){
+      queryParams = queryParams.append('ids', ids);
+    }
 
     return this.httpService.get(url, queryParams).map(response => {
       response = response.response;
@@ -29,7 +33,7 @@ export class ArticleService {
       }
 
       return articles;
-    })
+    });
   }
 
   get(id: string) {

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Article } from '../../model/article.model';
 import { ArticleService } from '../../service/article.service';
+import { BookmarkService } from '../../service/bookmark.service';
 
 @Component({
   selector: 'app-article',
@@ -17,10 +18,12 @@ export class ArticleComponent implements OnInit {
 
   private article: Article;
   private articleImage: SafeStyle;
+  private isBookmarked = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private articleService: ArticleService,
+    private bookmarkService: BookmarkService,
     private router: Router,
     private sanitizer: DomSanitizer
   ) {  }
@@ -31,10 +34,12 @@ export class ArticleComponent implements OnInit {
       id = `${segments.join('/')}`;
 
       this.articleService.get(id).subscribe(article => {
-        console.log(article);
         this.article = article;
         this.articleImage = this.sanitizer.bypassSecurityTrustStyle(`url(${this.article.thumbnail})`);
-      }, error => {
+
+        this.isBookmarked = this.bookmarkService.isBookmarked(this.article.id);
+      },
+      error => {
         this.articleService.list().subscribe(articles => {
           if(articles && articles.length) {
             this.router.navigateByUrl(`/${articles[0].id}`);
@@ -42,6 +47,16 @@ export class ArticleComponent implements OnInit {
         });
       });
     });
+  }
 
+  toggleBookmark() {
+    if(this.isBookmarked) {
+      this.bookmarkService.remove(this.article.id);
+      this.isBookmarked = false;
+    }
+    else {
+      this.bookmarkService.add(this.article.id);
+      this.isBookmarked = true;
+    }
   }
 }

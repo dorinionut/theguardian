@@ -1,5 +1,6 @@
 <div *ngIf="article" class="article">
   <a routerLink="/" class="back">View all articles</a>
+  <i [ngClass]="{'fas': isBookmarked, 'far': !isBookmarked}" class="fa-bookmark" (click)="toggleBookmark()"></i>
   <div class="image" [style.background-image]="articleImage"></div>
   <div class="content">
     <h2 class="title">{{article.title}}</h2>

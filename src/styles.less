@@ -1,4 +1,4 @@
-@import (reference) 'mixins';
+@import 'mixins';
 @import (reference) 'variables';
 
 * {
@@ -12,6 +12,10 @@ body {
   margin: 0;
   padding: 10px;
 
+  h1, h2 {
+    font-weight: 300;
+  }
+
   a {
     color: fade(@color-text, 70%);
     text-decoration: none;
@@ -22,6 +26,8 @@ body {
   }
 
   p {
+    font-weight: 300;
+
     a {
       text-decoration: underline;
     }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from '../../model/article.model';
 import { ArticleService } from '../../service/article.service';
+import { BookmarkService } from '../../service/bookmark.service';
 
 @Component({
   selector: 'app-list',
@@ -7,14 +9,51 @@ import { ArticleService } from '../../service/article.service';
   styleUrls: ['list.component.less']
 })
 export class ListComponent implements OnInit {
-  private list: any[];
+  private articles: Article[];
+  private showOnlyBookmarks= false;
 
   constructor(
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private bookmarkService: BookmarkService
   ) {  }
 
   ngOnInit() {
+    if(localStorage.getItem('showOnlyBookmarks') === 'true') {
+      this.showOnlyBookmarks = true;
+      this.loadBookmarks();
+    }
+    else {
+      this.loadArticles();
+    }
+  }
 
-    this.articleService.list().subscribe(response => this.list = response);
+  loadArticles(ids?: string[]){
+    this.articles = null;
+    this.articleService.list(ids).subscribe(response => this.articles = response);
+  }
+
+  loadBookmarks(){
+    this.bookmarkService.list().subscribe(bookmarks => {
+      if(bookmarks.length){
+        const ids = bookmarks.join(',');
+        this.loadArticles(ids);
+      }
+      else {
+        this.articles = [];
+      }
+    });
+  }
+
+  toggleBookmarks(){
+    this.showOnlyBookmarks = !this.showOnlyBookmarks;
+
+    localStorage.setItem('showOnlyBookmarks', this.showOnlyBookmarks.toString());
+
+    if(this.showOnlyBookmarks) {
+      this.loadBookmarks();
+    }
+    else {
+      this.loadArticles();
+    }
   }
 }

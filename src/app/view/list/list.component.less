@@ -1,6 +1,21 @@
 @import (reference) '../../../mixins';
 @import (reference) '../../../variables';
 
+.filters {
+  .panel;
+  font-size: @font-size*0.75;
+  margin: 0 auto @margin*0.5 auto;
+  padding: @padding*0.5;
+
+  .show-bookmarks {
+    cursor: pointer;
+  }
+
+  .fas, .far {
+    margin-right: @margin*0.25;
+  }
+}
+
 .article-list {
   max-width: @content-width;
   margin: 0px auto;
@@ -17,21 +32,21 @@
     -webkit-box-direction: normal;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
   }
 
   .article-box {
-    background: #fff;
-    box-shadow: 0px 3px 5px 0px #ccc;
+    .panel;
     cursor: pointer;
     margin: 0 0 @margin*0.5 0;
     transition: box-shadow 0.2s ease-out;
 
     @media (min-width: 768px) {
       -webkit-box-flex: 0;
-      -ms-flex: 0 1 49%;
-      flex: 0 1 49%;
+      -ms-flex: 0 1 49.5%;
+      flex: 0 1 49.5%;
     }
 
     @media (max-width: 767px) {
@@ -49,11 +64,9 @@
     }
 
     .content {
-      padding: @padding*0.5;
 
       .title {
-        font-size: @font-size*1.25;
-        font-weight: normal;
+        font-size: @font-size*1.125;
         margin: 0px 0px @margin*0.5 0px;
       }
 
@@ -79,8 +92,29 @@
 
       .trailtext {
         font-size: @font-size*0.875;
-        margin-top: @margin;
+        line-height: @font-size*1.25;
+        margin: @margin 0 0 0;
       }
     }
+  }
+}
+
+.empty-list {
+  .panel;
+  text-align: center;
+
+  .fa-frown {
+    color: fade(@color-text, 60);
+    font-size: @font-size*2;
+    margin-top: @margin;
+  }
+}
+
+.loading {
+  .panel;
+  text-align: center;
+
+  .fa-circle-notch {
+    font-size: @font-size*2;
   }
 }
