@@ -16,17 +16,18 @@ export class ArticleService {
   list(ids?) {
     const url = `${HttpService.baseURL}/search`;
     let queryParams = new HttpParams()
-      .append('show-fields', 'byline,headline,thumbnail,trailText');
+      .append('show-fields', 'byline,headline,thumbnail,trailText')
+      .append('use-date', 'first-publication');
 
-    if(ids){
+    if(ids) {
       queryParams = queryParams.append('ids', ids);
     }
 
     return this.httpService.get(url, queryParams).map(response => {
       response = response.response;
-      let articles = [];
+      const articles = [];
 
-      if(response.status == 'ok' && response.results.length) {
+      if(response.status === 'ok' && response.results.length) {
         response.results.forEach(result => {
           articles.push(ArticleMapper.toArticle(result));
         });

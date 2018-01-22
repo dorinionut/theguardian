@@ -10,7 +10,7 @@ import { BookmarkService } from '../../service/bookmark.service';
 })
 export class ListComponent implements OnInit {
   private articles: Article[];
-  private showOnlyBookmarks= false;
+  private showOnlyBookmarks = false;
 
   constructor(
     private articleService: ArticleService,
