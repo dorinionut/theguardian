@@ -2,9 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import 'rxjs/add/operator/switchMap';
-
-import { Article } from '../../model/article.model';
+import { Article } from '../../model/article.interface';
 import { ArticleService } from '../../service/article.service';
 import { BookmarkService } from '../../service/bookmark.service';
 
@@ -16,9 +14,10 @@ import { BookmarkService } from '../../service/bookmark.service';
 })
 export class ArticleComponent implements OnInit {
 
-  private article: Article;
-  private articleImage: SafeStyle;
-  private isBookmarked = false;
+  public article: Article;
+  public articleImage: SafeStyle;
+  public id: string = '';
+  public isBookmarked = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,23 +28,24 @@ export class ArticleComponent implements OnInit {
   ) {  }
 
   ngOnInit() {
-    let id = '';
     this.activatedRoute.url.subscribe(segments => {
-      id = `${segments.join('/')}`;
+      this.id = `${segments.join('/')}`;
 
-      this.articleService.get(id).subscribe(article => {
-        this.article = article;
-        this.articleImage = this.sanitizer.bypassSecurityTrustStyle(`url(${this.article.thumbnail})`);
+      this.articleService.get(this.id)
+        .subscribe(article => {
+            this.article = article;
+            this.articleImage = this.sanitizer.bypassSecurityTrustStyle(`url(${this.article.thumbnail})`);
 
-        this.isBookmarked = this.bookmarkService.isBookmarked(this.article.id);
-      },
-      error => {
-        this.articleService.list().subscribe(articles => {
-          if(articles && articles.length) {
-            this.router.navigateByUrl(`/${articles[0].id}`);
-          }
-        });
-      });
+            this.isBookmarked = this.bookmarkService.isBookmarked(this.article.id);
+          },
+          error => {
+            this.articleService.list()
+              .subscribe(articles => {
+                if(articles && articles.length) {
+                  this.router.navigateByUrl(`/${articles[0].id}`);
+                }
+              });
+          });
     });
   }
 

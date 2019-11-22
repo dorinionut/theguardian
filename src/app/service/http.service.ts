@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HttpService<T> {
 
   public static baseURL = 'https://content.guardianapis.com';
@@ -14,7 +16,7 @@ export class HttpService<T> {
   ) {  }
 
   get(url: string, queryParams?: HttpParams) {
-    if(queryParams) {
+    if (queryParams) {
       queryParams = queryParams.append('api-key', environment.apiKey);
     }
     else {

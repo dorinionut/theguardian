@@ -6,10 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ArticleComponent } from './view/article/article.component';
-import { ArticleService } from './service/article.service';
-import { BookmarkService } from './service/bookmark.service';
 import { ListComponent } from './view/list/list.component';
-import { HttpService } from './service/http.service';
 import { routes } from './app.routing';
 
 @NgModule({
@@ -24,11 +21,7 @@ import { routes } from './app.routing';
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [
-    ArticleService,
-    BookmarkService,
-    HttpService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

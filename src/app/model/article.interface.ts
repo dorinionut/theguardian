@@ -1,4 +1,4 @@
-export class Article {
+export interface Article {
   author: string;
   body: string;
   date: Date;

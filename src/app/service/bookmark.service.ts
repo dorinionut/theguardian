@@ -1,33 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BookmarkService {
   constructor() {  }
 
-  add(id): Observable<string> {
+  add(id: string): void {
     const bookmarks = (localStorage.getItem('bookmarks')) ? JSON.parse(localStorage.getItem('bookmarks')) : [];
     if (bookmarks.findIndex(bookmark => bookmark === id) === -1) {
       bookmarks.push(id);
     }
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-
-    return Observable.of(id);
   }
 
-  isBookmarked(id) {
+  isBookmarked(id: string): boolean {
     const bookmarks = (localStorage.getItem('bookmarks')) ? JSON.parse(localStorage.getItem('bookmarks')) : [];
     return (bookmarks.findIndex(bookmark => bookmark === id) !== -1);
   }
 
-  list(): Observable<any> {
+  list(): Observable<string[]> {
     const bookmarks = (localStorage.getItem('bookmarks')) ? JSON.parse(localStorage.getItem('bookmarks')) : [];
-    return Observable.of(bookmarks);
+    return of(bookmarks);
   }
 
-  remove(id): Observable<string> {
+  remove(id: string): void {
     const bookmarks = (localStorage.getItem('bookmarks')) ? JSON.parse(localStorage.getItem('bookmarks')) : [];
     const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark === id);
 
@@ -36,7 +34,5 @@ export class BookmarkService {
     }
 
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-
-    return Observable.of(id);
   }
 }

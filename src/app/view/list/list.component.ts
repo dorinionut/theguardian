@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../../model/article.model';
+import { Article } from '../../model/article.interface';
 import { ArticleService } from '../../service/article.service';
 import { BookmarkService } from '../../service/bookmark.service';
 
@@ -9,8 +9,8 @@ import { BookmarkService } from '../../service/bookmark.service';
   styleUrls: ['list.component.less']
 })
 export class ListComponent implements OnInit {
-  private articles: Article[];
-  private showOnlyBookmarks = false;
+  public articles: Article[];
+  public showOnlyBookmarks = false;
 
   constructor(
     private articleService: ArticleService,
@@ -29,19 +29,20 @@ export class ListComponent implements OnInit {
 
   loadArticles(ids?: string[]){
     this.articles = null;
-    this.articleService.list(ids).subscribe(response => this.articles = response);
+    this.articleService.list(ids)
+      .subscribe(response => this.articles = response);
   }
 
   loadBookmarks(){
-    this.bookmarkService.list().subscribe(bookmarks => {
-      if(bookmarks.length){
-        const ids = bookmarks.join(',');
-        this.loadArticles(ids);
-      }
-      else {
-        this.articles = [];
-      }
-    });
+    this.bookmarkService.list()
+      .subscribe(bookmarks => {
+        if(bookmarks.length){
+          this.loadArticles(bookmarks);
+        }
+        else {
+          this.articles = [];
+        }
+      });
   }
 
   toggleBookmarks(){
